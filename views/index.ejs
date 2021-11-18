@@ -1,0 +1,11 @@
+<title> Website | <%= title %>  </title>
+
+<%- include('./partials/navbar.ejs') %> 
+
+<div class = 'content'>
+    <h3>Items</h3>
+    <% items.forEach(item => { %> 
+        <h3><%= item.title %></h3>
+        <p><%= item.value %> </p>
+    <% }); %> 
+</div>
