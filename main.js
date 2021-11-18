@@ -1,14 +1,10 @@
-const fs = require('fs');
+const http = require('http');
 
-const rs = fs.createReadStream('./files/text1.txt', {encoding: 'utf8'});
-const ws = fs.createWriteStream('./files/text2.txt');
-let text = ''
+const server = http.createServer((req, res) => { // Callback called every time a request to the server is sent
+    console.log('request made');
+});
 
-
-// One way to transfer data from one file to another
-// readStream.on('data', chunk => {
-//     ws.write(chunk);
-// });
-
-// Piping
-rs.pipe(ws);
+const port = 3000;
+server.listen(port, 'localhost', () => {
+    console.log(`Listening for requests on port ${port}`)
+}); 
