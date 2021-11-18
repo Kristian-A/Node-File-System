@@ -1,0 +1,23 @@
+{
+  "name": "node-file-system",
+  "version": "1.0.0",
+  "description": "File Management System",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kristian-A/Node-File-System.git"
+  },
+  "author": "Kristian Apostolov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kristian-A/Node-File-System/issues"
+  },
+  "homepage": "https://github.com/Kristian-A/Node-File-System#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "lodash": "^4.17.21"
+  }
+}
