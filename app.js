@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const Files = require('./models/File.js');
+const Files = require('./models/file.js');
 const {dbname, username, password} = require('./db-connection.js');
 
 const dbURI = `mongodb+srv://${username}:${password}@nodefilesystem.tp1w8.mongodb.net/${dbname}?retryWrites=true&w=majority`
