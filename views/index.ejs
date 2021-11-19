@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-<title> Website | <%= title %>  </title>
-
-<%- include('./partials/navbar.ejs') %> 
-
-<div class = 'content'>
-    <h3>Items</h3>
-    <% items.forEach(item => { %> 
-        <h3><%= item.name %></h3>
-        <p><%= item.data %> </p>
-        <a class='delete' data-id='<%= item._id %>'> Delete </a>
-    <% }); %> 
-</div>
-<<<<<<< HEAD
-=======
 <h1>Files</h1>
 
 <% files.forEach(file => { %>
@@ -32,23 +17,3 @@
     <input type="text" name="description">
     <button>Submit</button>
 </form>
->>>>>>> build
-=======
-
-<script>
-    delete_buttons = document.querySelectorAll('a.delete');
-    
-    delete_buttons.forEach(delete_button => {
-        delete_button.addEventListener('click', e => {
-            console.log('click');
-            fetch(`/files/${delete_button.dataset.id}`, {
-                method: 'DELETE'
-            })
-            .then(response => response.json())
-            .then(result => window.location = result.redirect)
-            .catch(err => console.log(err));
-        });
-    });
-    
-</script>
->>>>>>> Features
