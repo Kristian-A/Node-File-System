@@ -5,7 +5,25 @@
 <div class = 'content'>
     <h3>Items</h3>
     <% items.forEach(item => { %> 
-        <h3><%= item.title %></h3>
-        <p><%= item.value %> </p>
+        <h3><%= item.name %></h3>
+        <p><%= item.data %> </p>
+        <a class='delete' data-id='<%= item._id %>'> Delete </a>
     <% }); %> 
 </div>
+
+<script>
+    delete_buttons = document.querySelectorAll('a.delete');
+    
+    delete_buttons.forEach(delete_button => {
+        delete_button.addEventListener('click', e => {
+            console.log('click');
+            fetch(`/files/${delete_button.dataset.id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(result => window.location = result.redirect)
+            .catch(err => console.log(err));
+        });
+    });
+    
+</script>

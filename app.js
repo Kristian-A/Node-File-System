@@ -16,15 +16,12 @@ mongoose.connect(dbURI)
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
+app.use(express.urlencoded({'extended': true }));
 
 app.get('/', (req, res) => {
-    const items = [
-        {title: 'first', value: 'wow'},
-        {title: 'second', value: 'this'},
-        {title: 'third', value: 'works'},
-    ];
-
-    res.render('index', {title: 'Home', items});    
+    File.find()
+        .then(result => res.render('index', {title: 'Home', items: result}))
+        .catch(err => console.log(err));
 });
 
 app.get('/about', (req, res) => {
@@ -35,22 +32,23 @@ app.get('/file/create', (req, res) => {
     res.render('create');
 });
 
-app.get('/file/upload', (req, res) => {
-    const file = File({
-        name: "File1",
-        data: "wow"
-    });
-
-    file.save()
-        .then(result => res.send(result))
+app.post('/files', (req, res) => {
+    
+    let {name, data} = req.body
+    
+    new File(req.body).save()
+        .then(result => console.log('Item added'))
         .catch(err => console.log(err));
+    res.redirect('/file/create');
 });
 
-app.get('/files', (req, res) => {
-    File.find()
-        .then(result => res.send(result))
+app.delete('/files/:id', (req, res) => {
+    let id = req.params.id;
+    
+    File.findByIdAndDelete(id)
+        .then(result => res.json({ 'redirect': '/' }))
         .catch(err => console.log(err));
-})
+});
 
 app.use((req, res) => {
     res.status(404).send('Page not found!'); 

@@ -3,11 +3,11 @@
 <%- include('./partials/navbar.ejs') %> 
 
 <div class='from'>
-    <form action>
-        <label for="title">Item title</label>
-        <input type="text" id='title' required>
-        <label for="data">Data</label>
-        <input type="text" id='data' required>
+    <form action='/files' method='POST'>
+        <label for='name'>Item title</label>
+        <input type='text' id='name' name = 'name' required>
+        <label for='data'>Data</label>
+        <input type='text' id='data' name = 'data' required>
         <button>Submit</button>
     </form>
 </div>
