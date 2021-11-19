@@ -1,38 +1,42 @@
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
+const Files = require('./models/File.js');
+const {dbname, username, password} = require('./db-connection.js');
+const { redirect } = require('statuses');
+
+const dbURI = `mongodb+srv://${username}:${password}@nodefilesystem.tp1w8.mongodb.net/${dbname}?retryWrites=true&w=majority`
+
+
+mongoose.connect(dbURI)
+    .then(res => {
+        console.log('Connected to database');
+        app.listen(3000);
+    })
+    .catch(err => console.log(err));
+
 
 app.set('view engine', 'ejs');
 
-
-app.use((req, res, next) => {
-    console.log('Request made');
-    console.log('hostname: ' + req.hostname);
-    console.log('path: ' + req.path); 
-    next();
-});
-
-app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    const items = [
-        {title: 'first', value: 'wow'},
-        {title: 'second', value: 'this'},
-        {title: 'third', value: 'works'},
-    ];
-
-    res.render('index', {title: 'Home', items});    
+    Files.find()
+        .then(files => res.render('index', {files}))
+        .catch(err => console.log(err));
 });
 
-app.get('/about', (req, res) => {
-    res.render('about');    
+app.post('/', (req, res) => {
+    new Files(req.body).save();
+    res.redirect('/');
 });
 
-app.get('/item/create', (req, res) => {
-    res.render('create');
+app.post('/delete/:id', (req, res) => {
+    Files.findByIdAndDelete(req.params.id)
+        .then(result => res.redirect('/'))
+        .catch(err => console.log(err));
 });
 
 app.use((req, res) => {
     res.status(404).send('Page not found!');
-});
-
-app.listen(3000);
+})

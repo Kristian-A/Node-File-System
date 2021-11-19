@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <title> Website | <%= title %>  </title>
 
 <%- include('./partials/navbar.ejs') %> 
@@ -9,3 +10,24 @@
         <p><%= item.value %> </p>
     <% }); %> 
 </div>
+=======
+<h1>Files</h1>
+
+<% files.forEach(file => { %>
+    <div class="file">
+        <p><%= file.name %> </p>
+        <p><%= file.description %> </p>
+
+        <form action="/delete/<%= file._id %> ", method="POST">
+            <button>Delete</button>
+        </form>
+
+    </div>    
+<% }); %> 
+
+<form action="/", method="POST">
+    <input type="text" name="name">
+    <input type="text" name="description">
+    <button>Submit</button>
+</form>
+>>>>>>> build
